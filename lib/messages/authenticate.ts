@@ -1,6 +1,12 @@
 import Message from "./message";
 
 class Authenticate implements Message {
+    _signature: string;
+
+    constructor(private readonly signature: string) {
+        this._signature = signature;
+    }
+
     marshal(): any[] {
         return [];
     }
