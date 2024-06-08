@@ -3,8 +3,10 @@ import Authenticate from "../messages/authenticate";
 
 
 interface ClientAuthenticator {
-    authMethod: string
-    authID: string
-    authExtra: object
+    get authMethod(): string
+    get authID(): string
+    get authExtra(): object
     authenticate(challenge: Challenge): Authenticate
 }
+
+export default ClientAuthenticator;
