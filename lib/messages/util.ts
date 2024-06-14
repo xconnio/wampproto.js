@@ -1,6 +1,5 @@
 import ProtocolError from "./exception";
 import ValidationSpec from "./validation-spec";
-import Exception from "./exception";
 
 export const MIN_ID: number = 1
 export const MAX_ID: number = 2 ** 53
@@ -44,7 +43,7 @@ class Fields {
     registrationID: number | null = null;
 }
 
-function sanityCheck(wampMessage: any[], minLength: number, maxLength: number, expectedID: number, name: string){
+export function sanityCheck(wampMessage: any[], minLength: number, maxLength: number, expectedID: number, name: string){
     if (wampMessage.length < minLength) {
         throw new ProtocolError(`invalid message length ${wampMessage.length}, must be at least ${minLength}`);
     }
@@ -59,7 +58,7 @@ function sanityCheck(wampMessage: any[], minLength: number, maxLength: number, e
     }
 }
 
-function validateIntOrRaise(value: any, index: number, message: string): string | null {
+export function validateIntOrRaise(value: any, index: number, message: string): string | null {
     if (typeof value !== 'number' || !Number.isInteger(value)) {
         return `${message}: value at index ${index} must be of type '${NUMBER}' but was ${typeof value}`
     }
@@ -67,7 +66,7 @@ function validateIntOrRaise(value: any, index: number, message: string): string 
     return null;
 }
 
-function validateStringOrRaise(value: any, index: number, message: string): string | null {
+export function validateStringOrRaise(value: any, index: number, message: string): string | null {
     if (typeof value !== "string") {
         return `${message}: value at index ${index} must be of type '${STRING}' but was ${typeof value}`
     }
@@ -75,7 +74,7 @@ function validateStringOrRaise(value: any, index: number, message: string): stri
     return null;
 }
 
-function validateListOrRaise(value: any, index: number, message: string): string | null {
+export function validateListOrRaise(value: any, index: number, message: string): string | null {
     if (!Array.isArray(value)) {
         return `${message}: value at index ${index} must be of type '${LIST}' but was ${typeof value}`
     }
@@ -83,7 +82,7 @@ function validateListOrRaise(value: any, index: number, message: string): string
     return null;
 }
 
-function validateDictOrRaise(value: any, index: number, message: string): string | null {
+export function validateDictOrRaise(value: any, index: number, message: string): string | null {
     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
         return `${message}: value at index ${index} must be of type '${DICT}' but was ${typeof value}`
     }
@@ -91,7 +90,7 @@ function validateDictOrRaise(value: any, index: number, message: string): string
     return null;
 }
 
-function validateIDOrRaise(value: number, index: number, message: string): string | null {
+export function validateIDOrRaise(value: number, index: number, message: string): string | null {
     const error: string | null = validateIntOrRaise(value, index, message);
     if (error !== null) {
         return error;
@@ -102,7 +101,7 @@ function validateIDOrRaise(value: number, index: number, message: string): strin
     return null;
 }
 
-function validateRequestID(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateRequestID(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateIDOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -112,7 +111,7 @@ function validateRequestID(msg: any[], index: number, fields: Fields, message: s
     return null;
 }
 
-function validateUri(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateUri(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateStringOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -122,7 +121,7 @@ function validateUri(msg: any[], index: number, fields: Fields, message: string)
     return null;
 }
 
-function validateArgs(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateArgs(msg: any[], index: number, fields: Fields, message: string): string | null {
     if (msg.length > index) {
         const error: string | null = validateListOrRaise(msg[index], index, message);
         if (error !== null) {
@@ -135,7 +134,7 @@ function validateArgs(msg: any[], index: number, fields: Fields, message: string
     return null;
 }
 
-function validateKwArgs(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateKwArgs(msg: any[], index: number, fields: Fields, message: string): string | null {
     if (msg.length > index) {
         const error: string | null = validateDictOrRaise(msg[index], index, message);
         if (error !== null) {
@@ -148,7 +147,7 @@ function validateKwArgs(msg: any[], index: number, fields: Fields, message: stri
     return null;
 }
 
-function validateSessionID(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateSessionID(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateIDOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -158,7 +157,7 @@ function validateSessionID(msg: any[], index: number, fields: Fields, message: s
     return null;
 }
 
-function validateRealm(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateRealm(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateStringOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -168,7 +167,7 @@ function validateRealm(msg: any[], index: number, fields: Fields, message: strin
     return null;
 }
 
-function validateAuthID(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
+export function validateAuthID(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
     const authid = details?.authid ?? null;
     if (authid !== null) {
         const error: string | null = validateStringOrRaise(authid, index, message);
@@ -183,7 +182,7 @@ function validateAuthID(details: { [key: string]:any}, index: number, fields: Fi
     return null;
 }
 
-function validateAuthRole(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
+export function validateAuthRole(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
     const authrole = details?.authrole ?? null;
     if (authrole !== null) {
         const error: string | null = validateStringOrRaise(authrole, index, message);
@@ -198,7 +197,7 @@ function validateAuthRole(details: { [key: string]:any}, index: number, fields: 
     return null;
 }
 
-function validateAuthMethod(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateAuthMethod(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateStringOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -208,7 +207,7 @@ function validateAuthMethod(msg: any[], index: number, fields: Fields, message: 
     return null;
 }
 
-function validateAuthMethods(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
+export function validateAuthMethods(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
     const authmethods = details?.authmethods ?? null;
     if (authmethods !== null) {
         const error: string | null = validateListOrRaise(authmethods, index, message);
@@ -223,7 +222,7 @@ function validateAuthMethods(details: { [key: string]:any}, index: number, field
     return null;
 }
 
-function validateWelcomeAuthMethod(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
+export function validateWelcomeAuthMethod(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
     const authmethod = details?.authmethod ?? null;
     if (authmethod !== null) {
         const error: string | null = validateStringOrRaise(authmethod, index, message);
@@ -238,7 +237,7 @@ function validateWelcomeAuthMethod(details: { [key: string]:any}, index: number,
     return null;
 }
 
-function validateAuthExtra(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
+export function validateAuthExtra(details: { [key: string]:any}, index: number, fields: Fields, message: string): string | null {
     const authextra = details?.authextra ?? null;
     if (authextra !== null) {
         const error: string | null = validateDictOrRaise(authextra, index, message);
@@ -253,7 +252,7 @@ function validateAuthExtra(details: { [key: string]:any}, index: number, fields:
     return null;
 }
 
-function validateRoles(details: { [key: string]:any}, index: number, fields: Fields, message: string) {
+export function validateRoles(details: { [key: string]:any}, index: number, fields: Fields, message: string) {
     const roles = details?.roles ?? null;
     const error: string | null = validateDictOrRaise(roles, index, message);
     if (error !== null) {
@@ -270,7 +269,7 @@ function validateRoles(details: { [key: string]:any}, index: number, fields: Fie
     return null;
 }
 
-function validateMessageType(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateMessageType(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateIntOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -280,7 +279,7 @@ function validateMessageType(msg: any[], index: number, fields: Fields, message:
     return null;
 }
 
-function validateSignature(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateSignature(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateStringOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -290,7 +289,7 @@ function validateSignature(msg: any[], index: number, fields: Fields, message: s
     return null;
 }
 
-function validateReason(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateReason(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateStringOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -300,7 +299,7 @@ function validateReason(msg: any[], index: number, fields: Fields, message: stri
     return null;
 }
 
-function validateTopic(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateTopic(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateStringOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -310,7 +309,7 @@ function validateTopic(msg: any[], index: number, fields: Fields, message: strin
     return null;
 }
 
-function validateExtra(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateExtra(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateDictOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -320,7 +319,7 @@ function validateExtra(msg: any[], index: number, fields: Fields, message: strin
     return null;
 }
 
-function validateOptions(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateOptions(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateDictOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -330,7 +329,7 @@ function validateOptions(msg: any[], index: number, fields: Fields, message: str
     return null;
 }
 
-function validateDetails(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateDetails(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateDictOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -340,7 +339,7 @@ function validateDetails(msg: any[], index: number, fields: Fields, message: str
     return null;
 }
 
-function validateHelloDetails(msg: any[], index: number, fields: Fields, message: string): string | string[] | null {
+export function validateHelloDetails(msg: any[], index: number, fields: Fields, message: string): string | string[] | null {
     const errors: string[] = [];
     const error: string | null = validateDictOrRaise(msg[index], index, message);
     if (error !== null) {
@@ -380,7 +379,7 @@ function validateHelloDetails(msg: any[], index: number, fields: Fields, message
     return null;
 }
 
-function validateWelcomeDetails(msg: any[], index: number, fields: Fields, message: string): string | string[] | null {
+export function validateWelcomeDetails(msg: any[], index: number, fields: Fields, message: string): string | string[] | null {
     const errors: string[] = [];
     const error: string | null = validateDictOrRaise(msg[index], index, message);
     if (error !== null) {
@@ -415,7 +414,7 @@ function validateWelcomeDetails(msg: any[], index: number, fields: Fields, messa
     return null;
 }
 
-function validateSubscriptionID(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateSubscriptionID(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateIDOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -425,7 +424,7 @@ function validateSubscriptionID(msg: any[], index: number, fields: Fields, messa
     return null;
 }
 
-function validatePublicationID(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validatePublicationID(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateIDOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -435,7 +434,7 @@ function validatePublicationID(msg: any[], index: number, fields: Fields, messag
     return null;
 }
 
-function validateRegistrationID(msg: any[], index: number, fields: Fields, message: string): string | null {
+export function validateRegistrationID(msg: any[], index: number, fields: Fields, message: string): string | null {
     const error: string | null = validateIDOrRaise(msg[index], index, message);
     if (error !== null) {
         return error;
@@ -445,7 +444,7 @@ function validateRegistrationID(msg: any[], index: number, fields: Fields, messa
     return null;
 }
 
-function validateMessage(msg: any[], type: number, name: string, valSpec: ValidationSpec): Fields {
+export function validateMessage(msg: any[], type: number, name: string, valSpec: ValidationSpec): Fields {
     sanityCheck(msg, valSpec.minLength, valSpec.maxLength, type, name)
 
     const errors: string[] = [];
