@@ -1,8 +1,8 @@
 class ValidationSpec {
-    public readonly minLength: number;
-    public readonly maxLength: number;
-    public readonly message: string;
-    public readonly spec: {[key:number]: CallableFunction};
+    readonly minLength: number;
+    readonly maxLength: number;
+    readonly message: string;
+    readonly spec: {[key:number]: CallableFunction};
     public constructor(minLength: number, maxLength: number, message: string, spec: {[key:number]: CallableFunction}) {
         this.minLength = minLength;
         this.maxLength = maxLength;
