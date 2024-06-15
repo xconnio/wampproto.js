@@ -131,7 +131,7 @@ class Error implements Message {
         return this._fields.binaryPayload.payloadSerializer;
     }
 
-    parse(msg: any[]): Error {
+    static parse(msg: any[]): Error {
         const f = validateMessage(msg, Error.TYPE, Error.TEXT, Error.VALIDATION_SPEC)
         return new Error(new ErrorFields(f.messageType, f.requestID, f.uri, f.args, f.kwargs, f.details));
     }

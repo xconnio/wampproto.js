@@ -40,7 +40,7 @@ class Abort implements Message {
         return this._fields.reason;
     }
 
-    parse(msg: any[]): Abort {
+    static parse(msg: any[]): Abort {
         const f = validateMessage(msg, Abort.TYPE, Abort.TEXT, Abort.VALIDATION_SPEC)
         return new Abort(new AbortFields(f.details, f.reason));
     }

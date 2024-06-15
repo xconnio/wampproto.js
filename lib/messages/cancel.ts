@@ -43,7 +43,7 @@ class Cancel implements Message {
         return this._fields.options;
     }
 
-    parse(msg: any[]): Cancel {
+    static parse(msg: any[]): Cancel {
         const f = validateMessage(msg, Cancel.TYPE, Cancel.TEXT, Cancel.VALIDATION_SPEC)
         return new Cancel(new CancelFields(f.requestID, f.options));
     }

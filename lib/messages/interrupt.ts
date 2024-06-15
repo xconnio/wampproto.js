@@ -43,7 +43,7 @@ class Interrupt implements Message {
         return this._fields.options;
     }
 
-    parse(msg: any[]): Interrupt {
+    static parse(msg: any[]): Interrupt {
         const f = validateMessage(msg, Interrupt.TYPE, Interrupt.TEXT, Interrupt.VALIDATION_SPEC)
         return new Interrupt(new InterruptFields(f.requestID, f.options));
     }

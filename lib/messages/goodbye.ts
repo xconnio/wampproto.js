@@ -40,7 +40,7 @@ class Goodbye implements Message {
         return this._fields.reason;
     }
 
-    parse(msg: any[]): Goodbye {
+    static parse(msg: any[]): Goodbye {
         const f = validateMessage(msg, Goodbye.TYPE, Goodbye.TEXT, Goodbye.VALIDATION_SPEC)
         return new Goodbye(new GoodbyeFields(f.details, f.reason));
     }
