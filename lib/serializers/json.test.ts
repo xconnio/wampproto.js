@@ -1,12 +1,12 @@
 import {JSONSerializer} from "./json";
-import Hello from "../messages/hello";
+import Hello, {HelloFields} from "../messages/hello";
 
 describe("msgpack", (): void => {
     const serializer: JSONSerializer = new JSONSerializer();
 
     it("serialize", (): void => {
-        const hello: Hello = new Hello("realm1", "authid");
-        const payload: string = serializer.serialize(hello);
+        let hello: Hello = new Hello(new HelloFields("realm1", {"callee": {}}));
+        let payload: string = serializer.serialize(hello);
         expect(expect(payload) != null).toBeTruthy()
 
         const msg: Hello = <Hello>serializer.deserialize(payload)

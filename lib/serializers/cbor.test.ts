@@ -1,12 +1,12 @@
 import {CBORSerializer} from "./cbor";
-import Hello from "../messages/hello";
+import Hello, {HelloFields} from "../messages/hello";
 
 describe("cbor", (): void => {
     const serializer: CBORSerializer = new CBORSerializer();
 
     it("serialize", (): void => {
-        const hello: Hello = new Hello("realm1", "authid");
-        const payload: Uint8Array = serializer.serialize(hello);
+        let hello: Hello = new Hello(new HelloFields("realm1", {"callee": {}}));
+        let payload: Uint8Array = serializer.serialize(hello);
         expect(expect(payload) != null).toBeTruthy()
 
         const msg: Hello = <Hello>serializer.deserialize(payload)
