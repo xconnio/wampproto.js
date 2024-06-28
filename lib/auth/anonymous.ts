@@ -2,7 +2,7 @@ import ClientAuthenticator from "./authenticator";
 import {Authenticate} from "../messages/authenticate";
 import {Challenge} from "../messages/challenge";
 
-class Anonymous implements ClientAuthenticator {
+export class Anonymous implements ClientAuthenticator {
     _authExtra: object;
     _authID: string;
     _authMethod: string = "anonymous";
