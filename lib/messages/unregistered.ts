@@ -47,3 +47,5 @@ class UnRegistered implements Message {
         return UnRegistered.TYPE;
     }
 }
+
+export {UnRegistered, UnRegisteredFields};

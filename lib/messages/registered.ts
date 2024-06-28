@@ -57,3 +57,5 @@ class Registered implements Message {
         return Registered.TYPE;
     }
 }
+
+export {Registered, RegisteredFields};

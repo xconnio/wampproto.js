@@ -36,7 +36,7 @@ class RegisterFields implements IRegisterFields {
     }
 }
 
-export class Register implements Message {
+class Register implements Message {
     static TYPE: number = 64;
     static TEXT: string = "REGISTER";
 
@@ -74,3 +74,5 @@ export class Register implements Message {
         return Register.TYPE;
     }
 }
+
+export {Register, RegisterFields};

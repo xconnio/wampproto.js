@@ -57,3 +57,5 @@ class UnRegister implements Message {
         return UnRegister.TYPE;
     }
 }
+
+export {UnRegister, UnRegisterFields};
