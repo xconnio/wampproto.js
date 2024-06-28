@@ -5,8 +5,8 @@ describe("msgpack", (): void => {
     const serializer: JSONSerializer = new JSONSerializer();
 
     it("serialize", (): void => {
-        let hello: Hello = new Hello(new HelloFields("realm1", {"callee": {}}));
-        let payload: string = serializer.serialize(hello);
+        const hello: Hello = new Hello(new HelloFields("realm1", {"callee": {}}));
+        const payload: string = serializer.serialize(hello);
         expect(expect(payload) != null).toBeTruthy()
 
         const msg: Hello = <Hello>serializer.deserialize(payload)
