@@ -53,3 +53,5 @@ class Goodbye implements Message {
         return Goodbye.TYPE;
     }
 }
+
+export {Goodbye, GoodbyeFields};

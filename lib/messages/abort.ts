@@ -53,3 +53,5 @@ class Abort implements Message {
         return Abort.TYPE;
     }
 }
+
+export {Abort, AbortFields};

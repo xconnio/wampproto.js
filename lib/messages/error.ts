@@ -9,7 +9,6 @@ import {
     validateRequestID,
     validateUri,
 } from "./util";
-import any = jasmine.any;
 
 interface IErrorFields {
     readonly messageType: number;
@@ -157,3 +156,5 @@ class Error implements Message {
         return Error.TYPE;
     }
 }
+
+export {Error, ErrorFields};

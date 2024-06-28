@@ -56,3 +56,5 @@ class Interrupt implements Message {
         return Interrupt.TYPE;
     }
 }
+
+export {Interrupt, InterruptFields};

@@ -56,3 +56,5 @@ class Cancel implements Message {
         return Cancel.TYPE;
     }
 }
+
+export {Cancel, CancelFields};
