@@ -57,3 +57,5 @@ class Published implements Message {
         return Published.TYPE;
     }
 }
+
+export {Published, PublishedFields};

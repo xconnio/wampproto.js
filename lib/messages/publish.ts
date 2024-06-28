@@ -144,3 +144,5 @@ class Publish implements Message {
         return Publish.TYPE;
     }
 }
+
+export {Publish, PublishFields};

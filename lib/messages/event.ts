@@ -144,3 +144,5 @@ class Event implements Message {
         return Event.TYPE;
     }
 }
+
+export {Event, EventFields};
