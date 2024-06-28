@@ -93,6 +93,7 @@ class Hello implements Message {
             "authrole": this.authrole,
             "authmethods": this.authmethods,
             "authextra": this.authextra,
+            "roles": this.roles,
         }
 
         return [Hello.TYPE, this.realm, details]

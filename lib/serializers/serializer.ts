@@ -10,7 +10,7 @@ interface Serializer {
 function ToMessage(wampMsg: any[]): Message {
     switch (wampMsg[0]) {
         case Hello.TYPE:
-            return new Hello(wampMsg[1], "");
+            return Hello.parse(wampMsg);
         default:
             throw new Error("unknown message: " + wampMsg[0]);
     }
