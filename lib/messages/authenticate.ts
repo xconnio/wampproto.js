@@ -58,4 +58,4 @@ class Authenticate implements Message {
     }
 }
 
-export default Authenticate;
+export {Authenticate, AuthenticateFields};
