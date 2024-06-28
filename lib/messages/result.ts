@@ -134,3 +134,5 @@ class Result implements Message {
         return Result.TYPE;
     }
 }
+
+export {Result, ResultFields};

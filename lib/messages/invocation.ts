@@ -146,3 +146,5 @@ class Invocation implements Message {
         return Invocation.TYPE;
     }
 }
+
+export {Invocation, InvocationFields};

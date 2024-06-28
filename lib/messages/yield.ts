@@ -134,3 +134,5 @@ class Yield implements Message {
         return Yield.TYPE;
     }
 }
+
+export {Yield, YieldFields};

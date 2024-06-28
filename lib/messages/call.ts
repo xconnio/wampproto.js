@@ -147,3 +147,5 @@ class Call implements Message {
         return Call.TYPE;
     }
 }
+
+export {Call, CallFields};
