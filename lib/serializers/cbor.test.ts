@@ -1,5 +1,5 @@
 import {CBORSerializer} from "./cbor";
-import Hello, {HelloFields} from "../messages/hello";
+import {Hello, HelloFields} from "../messages/hello";
 
 describe("cbor", (): void => {
     const serializer: CBORSerializer = new CBORSerializer();

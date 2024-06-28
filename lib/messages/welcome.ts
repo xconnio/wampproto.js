@@ -102,3 +102,5 @@ class Welcome implements Message {
         return Welcome.TYPE;
     }
 }
+
+export {Welcome, WelcomeFields};

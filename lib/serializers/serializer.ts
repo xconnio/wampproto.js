@@ -1,5 +1,5 @@
 import Message from "../messages/message";
-import Hello from "../messages/hello";
+import {Hello} from "../messages/hello";
 
 interface Serializer {
     serialize(message: Message): Uint8Array | string;

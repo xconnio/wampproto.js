@@ -1,5 +1,5 @@
 import {MsgPackSerializer} from "./msgpack";
-import Hello, {HelloFields} from "../messages/hello";
+import {Hello, HelloFields} from "../messages/hello";
 
 describe("msgpack", (): void => {
     const serializer: MsgPackSerializer = new MsgPackSerializer();

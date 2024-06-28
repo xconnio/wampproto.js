@@ -1,5 +1,5 @@
-import Challenge from "../messages/challenge";
-import Authenticate from "../messages/authenticate";
+import {Challenge} from "../messages/challenge";
+import {Authenticate} from "../messages/authenticate";
 
 
 interface ClientAuthenticator {

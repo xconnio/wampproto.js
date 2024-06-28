@@ -11,7 +11,7 @@ interface IHelloFields {
     readonly authextra: { [key: string]: any };
 }
 
-export class HelloFields implements IHelloFields {
+class HelloFields implements IHelloFields {
     constructor(
         private readonly _realm: string,
         private readonly _roles: { [key: string]: any },
@@ -104,4 +104,4 @@ class Hello implements Message {
     }
 }
 
-export default Hello;
+export {Hello, HelloFields};

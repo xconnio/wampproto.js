@@ -58,4 +58,4 @@ class Challenge implements Message {
     }
 }
 
-export default Challenge;
+export {Challenge, ChallengeFields};

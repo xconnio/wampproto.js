@@ -1,6 +1,6 @@
 import ClientAuthenticator from "./authenticator";
 import {Authenticate, AuthenticateFields} from "../messages/authenticate";
-import Challenge from "../messages/challenge";
+import {Challenge} from "../messages/challenge";
 
 class Ticket implements ClientAuthenticator {
     _authExtra: object;
