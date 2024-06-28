@@ -1,28 +1,28 @@
 import Message from "./message";
 import ValidationSpec from "./validation-spec";
-import {validateHelloDetails, validateMessage, validateRealm} from "./util";
+import {validateMessage, validateSessionID, validateWelcomeDetails} from "./util";
 
-interface IHelloFields {
-    readonly realm: string;
+interface IWelcomeFields {
+    readonly sessionID: number;
     readonly roles: { [key: string]: any },
     readonly authid: string;
     readonly authrole: string;
-    readonly authmethods: string[];
+    readonly authmethod: string;
     readonly authextra: { [key: string]: any };
 }
 
-class HelloFields implements IHelloFields {
+class WelcomeFields implements IWelcomeFields {
     constructor(
-        private readonly _realm: string,
+        private readonly _sessionID: number,
         private readonly _roles: { [key: string]: any },
         private readonly _authid: string | null = null,
         private readonly _authrole: string | null = null,
-        private readonly _authmethods: string[] | null = null,
+        private readonly _authmethod: string | null = null,
         private readonly _authextra: { [key: string]: any } | null = null
     ) {}
 
-    get realm(): string {
-        return this._realm;
+    get sessionID(): number {
+        return this._sessionID;
     }
 
     get roles(): { [key: string]: any } {
@@ -37,8 +37,8 @@ class HelloFields implements IHelloFields {
         return this._authrole;
     }
 
-    get authmethods(): string[] {
-        return this._authmethods;
+    get authmethod(): string {
+        return this._authmethod;
     }
 
     get authextra(): { [key: string]: any } {
@@ -46,20 +46,20 @@ class HelloFields implements IHelloFields {
     }
 }
 
-class Hello implements Message {
-    static TYPE: number = 1;
-    static TEXT: string = "HELLO";
+class Welcome implements Message {
+    static TYPE: number = 2;
+    static TEXT: string = "WELCOME";
     static VALIDATION_SPEC = new ValidationSpec(
         3,
         3,
-        Hello.TEXT,
-        {1: validateRealm, 2: validateHelloDetails}
+        Welcome.TEXT,
+        {1: validateSessionID, 2: validateWelcomeDetails},
     )
 
-    constructor(private readonly _fields: IHelloFields) {}
+    constructor(private readonly _fields: IWelcomeFields) {}
 
-    get realm(): string {
-        return this._fields.realm;
+    get sessionID(): number {
+        return this._fields.sessionID;
     }
 
     get roles(): { [key: string]: any } {
@@ -74,34 +74,33 @@ class Hello implements Message {
         return this._fields.authrole;
     }
 
-    get authmethods(): string[] {
-        return this._fields.authmethods;
+    get authmethod(): string {
+        return this._fields.authmethod;
     }
 
     get authextra(): { [key: string]: any } {
         return this._fields.authextra;
     }
 
-    static parse(msg: any[]): Hello {
-        const f = validateMessage(msg, Hello.TYPE, Hello.TEXT, Hello.VALIDATION_SPEC)
-        return new Hello(new HelloFields(f.realm, f.roles, f.authid, f.authrole, f.authmethods, f.authextra));
+    static parse(msg: any[]): Welcome {
+        const f = validateMessage(msg, Welcome.TYPE, Welcome.TEXT, Welcome.VALIDATION_SPEC)
+        return new Welcome(new WelcomeFields(f.sessionID, f.roles, f.authid, f.authrole, f.authmethod, f.authextra));
     }
 
     marshal(): any[] {
-        const details: { [key: string]: any} = {
+        const details: { [key: string]: any } = {
             "authid": this.authID,
             "authrole": this.authrole,
-            "authmethods": this.authmethods,
+            "authmethod": this.authmethod,
             "authextra": this.authextra,
-            "roles": this.roles,
         }
 
-        return [Hello.TYPE, this.realm, details]
+        return [Welcome.TYPE, this.sessionID, details]
     }
 
     type(): number {
-        return Hello.TYPE;
+        return Welcome.TYPE;
     }
 }
 
-export {Hello, HelloFields};
+export {Welcome, WelcomeFields};

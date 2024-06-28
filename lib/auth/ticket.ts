@@ -1,7 +1,6 @@
 import ClientAuthenticator from "./authenticator";
-import Authenticate from "../messages/authenticate";
-import Challenge from "../messages/challenge";
-import Authenticator from "./authenticator";
+import {Authenticate, AuthenticateFields} from "../messages/authenticate";
+import {Challenge} from "../messages/challenge";
 
 class Ticket implements ClientAuthenticator {
     _authExtra: object;
@@ -16,7 +15,7 @@ class Ticket implements ClientAuthenticator {
     }
 
     authenticate(challenge: Challenge): Authenticate {
-        return new Authenticate(this._ticket)
+        return new Authenticate(new AuthenticateFields(this._ticket))
     }
 
     get authExtra(): object {
