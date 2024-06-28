@@ -57,3 +57,5 @@ class Subscribed implements Message {
         return Subscribed.TYPE;
     }
 }
+
+export {Subscribed, SubscribedFields};

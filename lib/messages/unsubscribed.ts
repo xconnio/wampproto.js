@@ -47,3 +47,5 @@ class UnSubscribed implements Message {
         return UnSubscribed.TYPE;
     }
 }
+
+export {UnSubscribed, UnSubscribedFields};

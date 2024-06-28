@@ -57,3 +57,5 @@ class UnSubscribe implements Message {
         return UnSubscribe.TYPE;
     }
 }
+
+export {UnSubscribe, UnSubscribeFields};
