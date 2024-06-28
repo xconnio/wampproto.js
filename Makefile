@@ -9,3 +9,12 @@ clean:
 
 test:
 	./node_modules/.bin/jest ./lib/*
+
+check-lint:
+	npm run lint
+
+lint:
+	npm run lint-fix
+
+build:
+	npm run build
