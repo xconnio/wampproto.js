@@ -20,6 +20,4 @@ build:
 	npm run build
 
 build-wampproto:
-	rm -rf wampproto-cli
-	git clone https://github.com/xconnio/wampproto-cli.git
-	cd wampproto-cli/ && make build && sudo cp ./wampproto /usr/local/bin/
+	sudo snap install wampproto --edge
