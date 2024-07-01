@@ -8,7 +8,7 @@ clean:
 	rm -rf ./node_modules ts-built
 
 test:
-	./node_modules/.bin/jest ./lib/*
+	./node_modules/.bin/jest ./lib/* ./tests/*
 
 check-lint:
 	npm run lint
@@ -18,3 +18,6 @@ lint:
 
 build:
 	npm run build
+
+build-wampproto:
+	sudo snap install wampproto --edge
